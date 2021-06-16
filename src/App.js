@@ -1,4 +1,5 @@
 import Nav from './components/Nav/Nav';
+import Search from './components/Search/Search';
 
 import { Container } from '@material-ui/core';
 import './App.css';
@@ -8,7 +9,7 @@ function App() {
     <>
     <Nav/>
     <Container maxWidth="sm">
-      <div>Hello World!</div>
+      <Search/>
     </Container>
     </>
   );
