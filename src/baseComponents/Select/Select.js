@@ -22,6 +22,7 @@ function Select (props) {
                     labelId={props.labelId}
                     id={props.id}
                     value={props.value}
+                    name={props.name}
                     onChange={props.categoryChange}
                 
                 >
