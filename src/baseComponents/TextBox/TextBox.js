@@ -9,6 +9,10 @@ const useStyles = makeStyles((theme) => ({
 
 function TextBox (props) {
     const classes = useStyles();
+
+    const handleChange = (event) => {
+        props.userTextChange({type: 'searchText', payload: event.target.value})
+    }
     return (
         <FormControl className={classes.formControl}>
             <TextField
@@ -16,7 +20,7 @@ function TextBox (props) {
                 id={props.id}
                 name={props.name}
                 defaultValue={props.value}
-                onChange={props.userTextChange}
+                onChange={handleChange}
                 helperText={props.helperText}
                 error={false}
             />

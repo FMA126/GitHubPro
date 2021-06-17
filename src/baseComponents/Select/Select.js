@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Select (props) {
     const classes = useStyles();
+
+    const handleChange = (event) => {
+        props.categoryChange({type: 'category', payload: event.target.value});
+    }
     return (
         <>
             <FormControl className={classes.formControl}>
@@ -23,7 +27,7 @@ function Select (props) {
                     id={props.id}
                     value={props.value}
                     name={props.name}
-                    onChange={props.categoryChange}
+                    onChange={handleChange}
                 
                 >
                     {props.options.map((option, index) => (

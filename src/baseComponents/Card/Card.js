@@ -7,17 +7,23 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { findByLabelText } from '@testing-library/react';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    maxWidth: '80%',
+    marginTop: 5
   },
   media: {
     height: 140,
   },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  }
 });
 
-function Card() {
+function Card(props) {
   const classes = useStyles();
 
   return (
@@ -25,26 +31,34 @@ function Card() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          image={props.avatar}
+          title={props.userName}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            Email: {props.email ? props.email :  'NA'}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
+          <Typography color="textSecondary" component="p">
+            Name: {props.realName ? props.realName :  'NA'}
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            Location: {props.location ? props.location :  'NA'}
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            Repository Count: {props.repoCount ? props.repoCount :  'NA'}
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            Account Created: {props.accountCreationDate ? props.accountCreationDate.substring(0,10) :  'NA'}
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            Account Updated: {props.accountUpdateDate ? props.accountUpdateDate.substring(0,10) :  'NA'}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
+      <CardActions className={classes.actions}>
+        <a href={`${props.profileLink}`}>
+          View Profile
+        </a>
       </CardActions>
     </CardMUI>
   );
