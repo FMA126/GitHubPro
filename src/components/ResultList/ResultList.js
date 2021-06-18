@@ -8,11 +8,6 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
             alignItems: 'center'
         },
-        results: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-        }
     })
 )
 
@@ -28,9 +23,8 @@ function ResultList (props) {
     } else {
         return (
             <>
-                <div className={classes.results}>
-                    {props.userData.map((userInfo, index) => (
-                        <Card 
+                {props.userData.map((userInfo, index) => (
+                    <Card 
                         key={`${userInfo.data.id}`}
                         userName={userInfo.data.login}
                         avatar={userInfo.data.avatar_url}
@@ -40,10 +34,9 @@ function ResultList (props) {
                         repoCount={userInfo.data.public_repos}
                         accountCreationDate={userInfo.data.created_at}
                         accountUpdateDate={userInfo.data.updated_at}
-                        profileLink={userInfo.html_url}
-                        />
-                    ))}
-                </div>
+                        profileLink={userInfo.data.html_url}
+                    />
+                ))}
             </>
         )
     }

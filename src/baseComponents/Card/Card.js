@@ -5,17 +5,15 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { findByLabelText } from '@testing-library/react';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '80%',
+    maxWidth: '100%',
     marginTop: 5
   },
   media: {
-    height: 140,
+    height: 240,
   },
   actions: {
     display: 'flex',
@@ -25,7 +23,7 @@ const useStyles = makeStyles({
 
 function Card(props) {
   const classes = useStyles();
-
+  
   return (
     <CardMUI className={classes.root}>
       <CardActionArea>
@@ -36,27 +34,30 @@ function Card(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Email: {props.email ? props.email :  'NA'}
+            <span><b>Email: </b></span><span>{props.email ? props.email :  'NA'}</span>
           </Typography>
           <Typography color="textSecondary" component="p">
-            Name: {props.realName ? props.realName :  'NA'}
+            <span><b>User Name: </b></span><span>{props.userName ? props.userName :  'NA'}</span>
           </Typography>
           <Typography color="textSecondary" component="p">
-            Location: {props.location ? props.location :  'NA'}
+            <span><b>Name: </b></span><span>{props.realName ? props.realName :  'NA'}</span>
           </Typography>
           <Typography color="textSecondary" component="p">
-            Repository Count: {props.repoCount ? props.repoCount :  'NA'}
+            <span><b>Location: </b></span><span>{props.location ? props.location :  'NA'}</span>
           </Typography>
           <Typography color="textSecondary" component="p">
-            Account Created: {props.accountCreationDate ? props.accountCreationDate.substring(0,10) :  'NA'}
+            <span><b>Repository Count: </b></span><span>{props.repoCount ? props.repoCount :  'NA'}</span>
           </Typography>
           <Typography color="textSecondary" component="p">
-            Account Updated: {props.accountUpdateDate ? props.accountUpdateDate.substring(0,10) :  'NA'}
+            <span><b>Account Created: </b></span><span>{props.accountCreationDate ? props.accountCreationDate.substring(0,10) :  'NA'}</span>
+          </Typography>
+          <Typography color="textSecondary" component="p">
+            <span><b>Account Updated: </b></span><span>{props.accountUpdateDate ? props.accountUpdateDate.substring(0,10) :  'NA'}</span>      
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <a href={`${props.profileLink}`}>
+        <a href={`${props.profileLink}`} rel="noreferrer" target="_blank">
           View Profile
         </a>
       </CardActions>
