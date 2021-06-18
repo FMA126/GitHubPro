@@ -1,15 +1,36 @@
 import Card from '../../baseComponents/Card/Card';
 
+import {makeStyles} from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+        greeting: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+        },
+        results: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+        }
+    })
+)
+
 function ResultList (props) {
+    const classes = useStyles();
     if(!props.userData) {
         return (
-            <div>Results</div>
+            <div className={classes.greeting}>
+                <img src="./GitHub.png" alt="github logo"/>
+                <div>User Search</div>
+            </div>
         )
     } else {
         return (
             <>
-                {props.userData.map((userInfo, index) => (
-                    <Card 
+                <div className={classes.results}>
+                    {props.userData.map((userInfo, index) => (
+                        <Card 
                         key={`${userInfo.data.id}`}
                         userName={userInfo.data.login}
                         avatar={userInfo.data.avatar_url}
@@ -20,8 +41,9 @@ function ResultList (props) {
                         accountCreationDate={userInfo.data.created_at}
                         accountUpdateDate={userInfo.data.updated_at}
                         profileLink={userInfo.html_url}
-                    />
-                ))}
+                        />
+                    ))}
+                </div>
             </>
         )
     }

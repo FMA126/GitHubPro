@@ -8,24 +8,26 @@ import './App.css';
 import { useEffect, useReducer, useState } from 'react';
 
 function reducer(state, action) {
-  console.log(action)
   switch (action.type) {
       case 'category':
-        console.log('payload', action.payload)
           return { params: 
             { ...state.params,
             category: action.payload }
           };
       case 'searchText':
-        console.log('payload', action.payload)
         return { params: 
           { ...state.params,
           searchText: action.payload }
         };
-      case 'page':
+      case 'increase':
         return { params: 
           { ...state.params,
-          page: action.payload }
+          page: state.params.page + 1 }
+        };
+      case 'decrease':
+        return { params: 
+          { ...state.params,
+          page: state.params.page - 1 }
         };
     default:
       console.log('Something went wrong');
@@ -35,27 +37,32 @@ function reducer(state, action) {
 
 function App() {
   const [userList, setUserList] = useState(null);
+  const [totalPages, setTotalPages] = useState(0)
   const [searchParams, dispatchSearchParams] = useReducer(reducer, { params: {
     category: '',
     searchText: '',
-    page: '',
+    page: 1,
   } })
   useEffect(() => {
     if (searchParams.params.category && searchParams.params.searchText) {
-      console.log('state', searchParams)
       const fetchUserData = async () => {
-        console.log(searchParams.params)
-        const userRes = await getUsers(searchParams.params);
-        
-        const userListDataRes = await Promise.all(
-          userRes.data.items.map(async (item) => {
-            const userData = await getUserData(item.login)
-            return userData;
-          })
-        )
-        // console.log(userListDataRes)
-        setUserList(userListDataRes);
+        try {
+          const userRes = await getUsers(searchParams.params);
+          
+          const userListDataRes = await Promise.all(
+            userRes.data.items.map(async (item) => {
+              const userData = await getUserData(item.login)
+              return userData;
+            })
+          )
+          setTotalPages(Math.ceil(userRes.data.total_count / 10))
+          setUserList(userListDataRes);
+
+        } catch (error) {
+          alert('Something went wrong try again')
+        }
       }
+
       fetchUserData();
     }
   }, [searchParams])
@@ -64,7 +71,7 @@ function App() {
     <>
       <Nav/>
       <Container maxWidth="sm">
-        <Search searchFields={searchParams} dispatch={dispatchSearchParams}/>
+        <Search totalPages={totalPages} searchFields={searchParams} dispatch={dispatchSearchParams}/>
       </Container>
       <Container maxWidth="sm">
         <ResultList userData={userList}/>
